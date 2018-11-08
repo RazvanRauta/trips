@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <meta charset="UTF-8">
+        <title>AdventuRazvi</title>
+    </head>
+<body>
+<h1>Trip Details</h1>
+<br/><br/>
+<div> <table class="glyphicon glyphicon-calendar">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Location</th>
+    </tr>
+    <tr>
+        <td th:text="${trip.id}"></td>
+        <td th:text="${trip.title}"></td>
+        <td th:text="${trip.description}"></td>
+        <td th:text="${{trip.startDate}}"></td>
+        <td th:text="${{trip.endDate}}"></td>
+        <td th:text="${trip.location}"></td>
+    </tr>
+</table>
+</div>
+</body>
+</html>
