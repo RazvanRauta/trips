@@ -1,47 +1,348 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
+
+<head th:fragment="site-head">
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AdventuRazvi</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}"/>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.9"></script>
+    <link rel="stylesheet" th:href="@{/fonts/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/fonts/ionicons.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/Article-List.css}"/>
+    <link rel="stylesheet" th:href="@{/css/Footer-Basic.css}"/>
+    <link rel="stylesheet" th:href="@{/css/Navigation-Clean.css}"/>
+    <link rel="stylesheet" th:href="@{/css/Navigation-with-Button.css}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link rel="icon" th:href="@{/img/favicon.ico}"/>
+
 </head>
+
 <body>
-<h1>AdventuRazvi</h1>
-
-
-<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-    <form action=# th:action="@{/viewTrips}" th:method="get">
-        <button name="tripsButton" type="submit" class="btn btn-info" >View Trips</button></form>
-    <form action=# th:action="@{/createTrip}" th:method="get">
-        <button name="createButton" type="submit" class="btn btn-info" >Create Trip</button></form>
-
-    <div class="btn-group" role="group">
-
-            <form class="form-select-button" method="get" th:action="@{/seeTrip}">
-                <select class="navbar-dark"  id="list" name="id" onchange="getSelectValue()">
-                    <option class="btn-info" th:each="trip:${tripsList}" th:value="${trip.id}" th:text="${trip.title}">
-                    </option>
-                </select>
-                <br/><br/>
-                <input type="submit" value="Submit"/>
-            </form>
+<div th:fragment="navbar">
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean fixed-top"
+         style="background-color:rgba(27,59,181,0.78);height:75px;">
+        <div class="container align-items-start"><a class="navbar-brand " th:href="@{/}" style="color:rgb(255,255,255);font-size:24px;"><img
+                th:src="@{img/site-logo.png}" style="font-size:17px;width:82px;">
+            <h2 class="navbar-brand align-content-center">AdeventuRazvi</h2></a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-2"><span class="sr-only">Toggle navigation</span><span
+                    class="navbar-toggler-icon"></span></button>
+            <div
+                    class="collapse navbar-collapse" id="navcol-2" style="background-color:rgba(55,36,54,0);">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="#"></a></li>
+                    <li class="dropdown" style="color:rgb(0,0,0);"><a
+                            class="dropdown-toggle nav-link text-info dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false" href="#"
+                            style="color:rgb(0,9,17);font-size:23px;height:70px;padding:15px;"><i
+                            class="fa fa-align-justify" style="color:rgb(0,0,0);"></i></a>
+                        <div
+                                class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation"
+                                                                     th:href="@{/viewTrips}">My
+                            Trips</a><a class="dropdown-item" role="presentation" th:href="@{/profile}">Profile</a><a
+                                class="dropdown-item" role="presentation" th:href="@{/profile}"></a></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<br/>
+<br/>
+<br/>
+<div>
+    <div th:fragment="navbar2">
+        <nav class="navbar navbar-expand-sm bg-info navbar-dark fixed-bottom navigation-clean-button fixed-bottom ">
+            <div class="container">
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
+                        class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse"
+                     id="navcol-1">
+                    <ul class="nav navbar-nav mr-auto">
+                        <form class="dropdown" method="get" th:action="@{/seeTrip}" th:label="${trip.title}">
+                            <select class="custom-select" id="list" name="id"
+                                    onchange='if(this.value != 0) { this.form.submit(); }'>
+                                <option selected disabled>Select a trip..</option>
+                                <option class="custom-select" th:each="trip:${tripsList}" th:value="${trip.id}"
+                                        th:text="${trip.title}">
+                                </option>
+                            </select>
+                        </form>
+                    </ul>
+                    <span class="navbar-text actions">
+                           <a class="btn btn-light action-button" role="button" data-toggle="modal"
+                              data-target="#createModal3">Edit</a>
+                            <a class="btn btn-light action-button" role="button" data-toggle="modal"
+                               data-target="#createModal" style="background-color:rgb(20,207,61);">Add</a>
+                            <a class="btn btn-light action-button" role="button"
+                               style="background-color:rgb(207,20,20);" th:href="@{/deleteTrip/{id}(id=${trip.id})}">Delete</a></span></div>
+            </div>
+        </nav>
+    </div>
+</div>
+<div id="header">
+    <div class="hero-image" id="coverImg">
+        <div class="container">
+            <div class="header-content">
+                <div class="hero-text">
+                    <h1>I'm <span id="typed"></span></h1>
+                    <p>traveler, developer, photographer</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
-    Create Trip
-</button>
+<div class="article-list">
+    <div class="container">
+        <div class="intro">
+            <h2 class="text-center">My Trips Around The Globe</h2>
+            <p class="text-center">Take a look in my adventures! </p>
+        </div>
+        <div class="row articles">
+            <div class="col-sm-6 col-md-4 item">
+                <div id="carusel1" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carusel1" data-slide-to="0" class="active"></li>
+                        <li data-target="#carusel1" data-slide-to="1"></li>
+                        <li data-target="#carusel1" data-slide-to="2"></li>
+                        <li data-target="#carusel1" data-slide-to="3"></li>
+                        <li data-target="#carusel1" data-slide-to="4"></li>
+                        <li data-target="#carusel1" data-slide-to="5"></li>
+                        <li data-target="#carusel1" data-slide-to="6"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="img-thumbnail" th:src="@{/img/rio/c.jpg}" alt="1">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/rio/a.jpg}" alt="2">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/rio/b.jpg}" alt="3">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/rio/d.jpg}" alt="4">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/rio/e.jpg}" alt="5">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/rio/f.jpg}" alt="6">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/rio/g.jpg}" alt="7">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carusel1" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carusel1" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <h3 class="name">Rio de Janeiro</h3>
+                <p class="description">Rio de Janeiro is a huge seaside city in Brazil, famed for its Copacabana and
+                    Ipanema beaches, 38m Christ the Redeemer statue atop Mount Corcovado and for Sugarloaf Mountain, a
+                    granite peak with cable cars to its summit. The city is also known for its sprawling favelas (shanty
+                    towns). Its raucous Carnaval festival, featuring parade floats, flamboyant costumes and samba
+                    dancers, is considered the world’s largest.</p><a href="#" class="action"><i
+                    class="fa fa-arrow-circle-right"></i></a></div>
+            <div
+                    class="col-sm-6 col-md-4 item">
+                <div id="carusel2" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carusel2" data-slide-to="0" class="active"></li>
+                        <li data-target="#carusel2" data-slide-to="1"></li>
+                        <li data-target="#carusel2" data-slide-to="2"></li>
+                        <li data-target="#carusel2" data-slide-to="3"></li>
+                        <li data-target="#carusel2" data-slide-to="4"></li>
+                        <li data-target="#carusel2" data-slide-to="5"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="img-thumbnail" th:src="@{/img/sky/c.jpg}" alt="1">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/sky/a.jpg}" alt="2">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/sky/b.jpg}" alt="3">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/sky/d.jpg}" alt="4">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/sky/e.jpg}" alt="5">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/sky/f.jpg}" alt="6">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carusel2" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carusel2" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <h3 class="name">Ski Trip In Romania</h3>
+                <p class="description">In septembrie 2011 a inceput constructia noului domeniu schiabil VIDRA -
+                    TRANSALPINA, domeniu ce se doreste a fi unul dintre cele mai mari si frumoase din tara, in proiect
+                    fiind peste 80 de km de partii ce ajung pana la 2100 m altitudine majoritatea in goluri alpine. In
+                    martie 2012 a fost inaugurata prima partie de ski, Partia de ski Mioarele, iar in 22 decembrie 2012
+                    s-a deschis oficial acest domeniu schiabial.</p><a href="#" class="action"><i
+                    class="fa fa-arrow-circle-right"></i></a></div>
+            <div class="col-sm-6 col-md-4 item">
+                <div id="carusel3" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carusel3" data-slide-to="0" class="active"></li>
+                        <li data-target="#carusel3" data-slide-to="1"></li>
+                        <li data-target="#carusel3" data-slide-to="2"></li>
+                        <li data-target="#carusel3" data-slide-to="3"></li>
+                        <li data-target="#carusel3" data-slide-to="4"></li>
+                        <li data-target="#carusel3" data-slide-to="5"></li>
+                        <li data-target="#carusel3" data-slide-to="6"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="img-thumbnail" th:src="@{/img/africa/c.jpg}" alt="1">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/africa/a.jpg}" alt="2">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/africa/b.jpg}" alt="3">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/africa/d.jpg}" alt="4">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/africa/e.jpg}" alt="5">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/africa/f.jpg}" alt="6">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/africa/g.jpg}" alt="7">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carusel3" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carusel3" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <h3 class="name">Safari in South Africa</h3>
+                <p class="description">Aquila Game Reserve is recognized as a major Cape Town tourist attraction. Aquila
+                    has been published in the "World's 21 favourite things to do in Cape Town," and considered one of
+                    the top 10 daytrip destinations by Sawubona Magazine. Aquila offers a wide variety of safaris - day
+                    trip safaris, horseback safaris, quad bike safari, overnight and fly-in safaris. There are other
+                    activities on offer like 4 x 4 trails, fishing and themed weekend breakaways.</p><a href="#"
+                                                                                                        class="action"><i
+                    class="fa fa-arrow-circle-right"></i></a></div>
 
+            <div class="col align-content-center">
+                <div id="carusel4" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carusel4" data-slide-to="0" class="active"></li>
+                        <li data-target="#carusel4" data-slide-to="1"></li>
+                        <li data-target="#carusel4" data-slide-to="2"></li>
+                        <li data-target="#carusel4" data-slide-to="3"></li>
+                        <li data-target="#carusel4" data-slide-to="4"></li>
+                        <li data-target="#carusel4" data-slide-to="5"></li>
+                        <li data-target="#carusel4" data-slide-to="6"></li>
+                        <li data-target="#carusel4" data-slide-to="7"></li>
+                        <li data-target="#carusel4" data-slide-to="8"></li>
+                        <li data-target="#carusel4" data-slide-to="9"></li>
+                        <li data-target="#carusel4" data-slide-to="10"></li>
+                        <li data-target="#carusel4" data-slide-to="11"></li>
+                        <li data-target="#carusel4" data-slide-to="12"></li>
+                        <li data-target="#carusel4" data-slide-to="13"></li>
+                        <li data-target="#carusel4" data-slide-to="14"></li>
+                        <li data-target="#carusel4" data-slide-to="15"></li>
+                        <li data-target="#carusel4" data-slide-to="16"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="img-thumbnail" th:src="@{/img/dive/a1.jpg}" alt="1">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/dive/a2.jpg}" alt="2">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/dive/a3.jpg}" alt="3">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/dive/a4.jpg}" alt="4">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/dive/a5.jpg}" alt="5">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/dive/a6.jpg}" alt="6">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/dive/a7.jpg}" alt="7">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/dive/a8.jpg}" alt="2">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/dive/a9.jpg}" alt="2">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/dive/a10.jpg}" alt="2">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/dive/a11.jpg}" alt="2">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/dive/a12.jpg}" alt="2">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/dive/a13.jpg}" alt="2">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/dive/a14.jpg}" alt="2">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/dive/a15.jpg}" alt="2">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-thumbnail" th:src="@{/img/dive/a16.jpg}" alt="2">
+                        </div>
+
+                    </div>
+                    <a class="carousel-control-prev" href="#carusel4" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carusel4" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <h3 class="name">Highlights</h3>
+                <p class="description">Glimpses from around the world</p><a href="#" class="action"><i
+                    class="fa fa-arrow-circle-right"></i></a></div>
+
+        </div>
+    </div>
+</div>
 <!-- Modal -->
-<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModal2" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModal2" aria-hidden="true"
+     th:fragment="modal">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="createModal2">Add new trip</h5>
@@ -50,74 +351,138 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="#" th:action="@{/createTrip}" th:object="${trip}" method="post">
-                    <p>Name: <input type="text" th:field="*{title}"/></p>
-                    <p>Descriptions: <textarea th:field="*{description}"/></p>
-                    <p>Start Date: <input type="datetime" th:field="*{{startDate}}"></p>
-                    <p>End Date:<input type="datetime" th:field="*{{endDate}}"></p>
-                    <p>Location:<input type="text" th:field="*{location}"></p>
+                <div class="row">
+                    <div class="col-12">
+                        <h5 class="mb-4">Create Trip</h5>
+                        <form class="was-validated" action="#" th:action="@{/createTrip}" th:object="${trip}"
+                              method="post">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="form-2-trip-name">Trip Name</label>
+                                    <input type="text" class="form-control is-valid" id="form-2-trip-name"
+                                           th:field="*{title}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="form-2-description">Description</label>
+                                    <textarea class="form-control is-valid" th:field="*{description}" required
+                                              id="form-2-description"></textarea>
+                                </div>
+                            </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" value="Submit">Save changes</button>
-            </div>
-            </form>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="form-2-location">Location</label>
+                                    <input type="text" th:field="*{location}" class="form-control is-invalid"
+                                           id="form-2-location" required>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-group">
+                                        <label for="datepicker-example-1">Start Date</label>
+                                        <div class="input-group with-addon-icon-left">
+                                            <input type="date" th:field="*{{startDate}}" required
+                                                   class="form-control" id="datepicker-example-1">
+                                            <span class="input-group-append">
+                    <span class="input-group-text">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                  </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-group">
+                                        <label for="datepicker-example-2">End Date</label>
+                                        <div class="input-group with-addon-icon-left">
+                                            <input type="date" th:field="*{{endDate}}" required class="form-control"
+                                                   id="datepicker-example-2">
+                                            <span class="input-group-append">
+                    <span class="input-group-text">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                  </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col-md-6 mb-3">
+                                    <label for="customFile2">Trip Pictures</label>
+                                    <div class="custom-file w-100">
+                                        <input th:field="*{filePath}"  type="file" class="custom-file-input" id="customFile2" required>
+                                        <label class="custom-file-label" for="customFile2">Choose file...</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" value="Submit">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewModal">
-    View Trips
-</button>
+        <div class="modal" id="createModal3" tabindex="-1" role="dialog" aria-labelledby="createModal4"
+             aria-hidden="true"
+             th:fragment="modal">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createModal4">Add new trip</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" th:action="@{/editTrip}" th:object="${trip}" method="put">
+                            <p>Name: <input type="text" th:field="*{title}" required/></p>
+                            <p>Descriptions: <textarea th:field="*{description}" required/></p>
+                            <p>Start Date: <input type="datetime" th:field="*{{startDate}}" required/></p>
+                            <p>End Date:<input type="datetime" th:field="*{{endDate}}" required/></p>
+                            <p>Location:<input type="text" th:field="*{location}" required/></p>
 
-<!-- Modal -->
-<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModal2" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="viewModal2">Trips</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action=# th:action="@{/viewTrips}" th:method="get">
-                    <table class="table">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Location</th>
-                        </tr>
-                        </thead>
-                        <tr th:each="trip : ${trips}" style="cursor: pointer"
-                            th:onclick="'alert(\'' + ${trip.id} + '\');'">
-                            <td th:text="${trip.id}"></td>
-                            <td th:text="${trip.title}"></td>
-                            <td th:text="${trip.description}"></td>
-                            <td th:text="${{trip.startDate}}"></td>
-                            <td th:text="${{trip.endDate}}"></td>
-                            <td th:text="${trip.location}"></td>
-                            <!--<td><a th:href="${'/' + trip.id}">Delete</a></td>-->
-                        </tr>
-                    </table>
-                </form>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" value="Submit">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-
-<script>
-    function alert(value) {
-        location.href="seeTrip?id="+value;
-    }
-</script>
-
-<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
-<script type="text/javascript"  src="/static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+        <div class="footer-basic" th:fragment="site-footer">
+            <footer>
+                <div class="social"><a href="https://www.instagram.com/rauta_razvan/"><i
+                        class="icon ion-social-instagram"></i></a><a
+                        href="https://www.facebook.com/razvan.rauta"><i class="icon ion-social-facebook"></i></a><a
+                        href="https://github.com/RazvanRauta"><i class="icon ion-social-github"></i></a><a
+                        href="https://www.linkedin.com/in/razvan-rauta/"><i class="icon ion-social-linkedin"></i></a>
+                </div>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a th:href="@{/}">Home</a></li>
+                    <li class="list-inline-item"><a th:href="@{/profile}">Profile</a></li>
+                    <li class="list-inline-item"><a href="#">About</a></li>
+                </ul>
+                <p class="copyright">AdventuRazvi © 2018</p>
+            </footer>
+        </div>
+        <script>
+            var options = {
+                strings: ["RAZVAN.", "TRAVELER.", "DEVELOPER.", "PHOTOGRAPHER."],
+                typeSpeed: 120,
+                loop: true,
+                backDelay: 1000,
+                backSpeed: 80,
+                showCursor: false
+            }
+            var typed = new Typed("#typed", options);
+        </script>
+        <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/bootstrap/4.1.3/js/bootstrap.min.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/popper.js/1.14.4/popper.min.js}"></script>
 </body>
 </html>
+

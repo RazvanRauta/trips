@@ -1,5 +1,6 @@
 package ro.scoalainformala.trips.services;
 
+import ro.scoalainformala.trips.entitys.Spot;
 import ro.scoalainformala.trips.entitys.Trip;
 
 import java.util.List;
@@ -11,5 +12,5 @@ public interface TripService {
     void deleteTrip(Trip trip);
     void deleteTrip(Long id);
     List<Trip> getAllTrips();
-    List<Trip> getAllEntireTripsList(Long tripID);
+    List<Spot> getAllSpots();
 }

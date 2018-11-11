@@ -1,39 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico"/>
-        <meta charset="UTF-8">
-        <title>AdventuRazvi</title>
-    </head>
+<head th:insert="index::site-head">
 <body>
+<div th:insert="index::navbar"></div>
+<div th:insert="index::navbar2"></div>
 
-<h3>Trips List</h3>
-<div> <table class="">
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Location</th>
-    </tr>
-    <tr th:each="trip : ${trips}">
-        <td th:text="${trip.id}"></td>
-        <td th:text="${trip.title}"></td>
-        <td th:text="${trip.description}"></td>
-        <td th:text="${{trip.startDate}}"></td>
-        <td th:text="${{trip.endDate}}"></td>
-        <td th:text="${trip.location}"></td>
-        <td><a th:href="${'/' + trip.id}">Delete</a></td>
-    </tr>
-</table>
+<br/>
+<br/>
+<br/>
+<br/>
+<div th:switch="${trips}">
+    <h2 th:case="null">No users yet!</h2>
+    <div th:case="*">
+        <h3 class="header-panel align-content-center">Trips List</h3>
+        <div>
+            <table class="table-bordered">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Location</th>
+                    <th>Picture</th>
+                </tr></thead>
+                <tbody>
+                <tr th:each="trip : ${trips}">
+                    <td th:text="${trip.id}"></td>
+                    <td th:text="${trip.title}"></td>
+                    <td th:text="${trip.description}"></td>
+                    <td th:text="${{trip.startDate}}"></td>
+                    <td th:text="${{trip.endDate}}"></td>
+                    <td th:text="${trip.location}"></td>
+                    <td id="pozaTrip"><img class="card-img" th:src="@{/image/{id}(id=${trip.filePath})}"></td>
+                    <td><a th:href="${'/deleteTrip/' + trip.id}">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="../static/js/bootstrap.js" th:href="@{/js/bootstrap.js}"></script>
+<div th:insert="index::site-footer"></div>
+<div th:insert="index::modal"></div>
+<script type="text/javascript" th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/4.1.3/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/popper.js/1.14.4/popper.min.js}"></script>
 </body>
 </html>

@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
-<head th:replace="index :: head">
-    <title>AdventuRazvi</title>
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="index::site-head">
 </head>
 <body>
 <div th:insert="index::navbar"></div>
 <div th:insert="index::navbar2"></div>
-<br/>
-<br/>
-<br/>
-<h1 class="panel-title" th:text="${trip.title}">Trip Details</h1>
-<br/><br/>
-<table class="glyphicon glyphicon-calendar">
+<h3>Trips List</h3>
+<div> <table class="form-group">
     <tr>
         <th>Id</th>
         <th>Name</th>
@@ -19,22 +17,20 @@
         <th>Start Date</th>
         <th>End Date</th>
         <th>Location</th>
-        <th>FilePath</th>
     </tr>
-    <tr>
+    <tr th:each="trip : ${trips}">
         <td th:text="${trip.id}"></td>
         <td th:text="${trip.title}"></td>
         <td th:text="${trip.description}"></td>
         <td th:text="${{trip.startDate}}"></td>
         <td th:text="${{trip.endDate}}"></td>
         <td th:text="${trip.location}"></td>
-        <td><div class="container-fluid"> <img class="img-thumbnail" style="float: right;"  th:src="@{/image/{id}(id=${trip.filePath})}" alt="1"></div></td>
     </tr>
 </table>
-   </div>
+</div>
+
 <div th:insert="index::site-footer"></div>
 <div th:insert="index::modal"></div>
-</footer>
 <script type="text/javascript" src="/static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 <script type="text/javascript"  src="/static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
 </body>

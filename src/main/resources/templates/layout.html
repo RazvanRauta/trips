@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdventuRazvi</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/fonts/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/fonts/ionicons.min.css}"/>
+    <link rel="stylesheet"  th:href="@{/css/Article-List.css}"/>
+    <link rel="stylesheet"  th:href="@{/css/Footer-Basic.css}"/>
+    <link rel="stylesheet"  th:href="@{/css/Navigation-Clean.css}"/>
+    <link rel="stylesheet"  th:href="@{/css/Navigation-with-Button.css}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link rel="icon" th:href="@{/img/favicon.ico}"/>
+    <script type="text/javascript" src="/static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <script type="text/javascript"  src="/static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+
+</head>
+
+<body>
+<header th:fragment="header">
+
+    <!-- Modal -->
+    <div class="modal" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModal2" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createModal2">Add new trip</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" th:action="@{/createTrip}" th:object="${trip}" method="post">
+                        <p>Name: <input type="text" th:field="*{title}" required/></p>
+                        <p>Descriptions: <textarea th:field="*{description}" required/></p>
+                        <p>Start Date: <input type="datetime" th:field="*{{startDate}}" required/></p>
+                        <p>End Date:<input type="datetime" th:field="*{{endDate}}" required/></p>
+                        <p>Location:<input type="text" th:field="*{location}" required/></p>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" value="Submit">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div>
+        <nav class="navbar navbar-light navbar-expand-md navigation-clean" style="background-color:rgba(40,17,181,0.34);height:75px;">
+            <div class="container"><a class="navbar-brand" th:href="@{/}" style="color:rgb(141,31,150);font-size:24px;"><img th:src="@{img/site-logo.png}" style="font-size:17px;width:82px;"></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div
+                        class="collapse navbar-collapse" id="navcol-1" style="background-color:rgba(55,36,54,0);">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="#"></a></li>
+                        <li class="dropdown" style="color:rgb(0,0,0);"><a class="dropdown-toggle nav-link text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#" style="color:rgb(0,9,17);font-size:23px;height:70px;padding:15px;"><i class="fa fa-align-justify" style="color:rgb(0,0,0);"></i></a>
+                            <div
+                                    class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">My Trips</a><a class="dropdown-item" role="presentation" href="#">Profile</a><a class="dropdown-item" role="presentation" href="#"></a></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="col">
+            <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+                <div class="container"><a class="navbar-brand" href="#"></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-2"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse"
+                         id="navcol-2">
+                        <ul class="nav navbar-nav mr-auto">
+                            <form class="dropdown" method="get" th:action="@{/seeTrip}" th:label="${trip.title}">
+                                <select class="custom-select"  id="list" name="id" onchange='if(this.value != 0) { this.form.submit(); }'>
+                                    <option selected disabled >Select a trip..</option>
+                                    <option class="custom-select" th:each="trip:${tripsList}" th:value="${trip.id}" th:text="${trip.title}" >
+                                    </option>
+                                </select>
+                            </form>
+                        </ul><span class="navbar-text actions">
+                           <a class="btn btn-light action-button" role="button" th:href="@{/editTrip}">Edit</a>
+                            <a class="btn btn-light action-button" role="button" data-toggle="modal" data-target="#createModal" style="background-color:rgb(20,207,61);">Add</a>
+                            <a class="btn btn-light action-button" role="button" href="#" style="background-color:rgb(207,20,20);">Delete</a></span></div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    </div>
+    </div>
+</header>
+
+<p th:fragment="helloworld">Hello world!</p>
+
+<div class="footer-basic" th:fragment="footer">
+    <footer>
+        <div class="social"><a href="https://www.instagram.com/rauta_razvan/"><i class="icon ion-social-instagram"></i></a><a href="https://www.facebook.com/razvan.rauta"><i class="icon ion-social-facebook"></i></a><a href="https://github.com/RazvanRauta"><i class="icon ion-social-github"></i></a><a href="https://www.linkedin.com/in/razvan-rauta/"><i class="icon ion-social-linkedin"></i></a></div>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Home</a></li>
+            <li class="list-inline-item"><a href="#">Profile</a></li>
+            <li class="list-inline-item"><a href="#">About</a></li>
+        </ul>
+        <p class="copyright">AdventuRazvi © 2018</p>
+
+    </footer>
+</div>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js" th:if="false"></script>
+<script src="http://blackpeppersoftware.github.io/thymeleaf-fragment.js/thymeleaf-fragment.js"
+        defer="defer" th:if="false"></script>
+<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript"  src="/static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+</body>
+</html>

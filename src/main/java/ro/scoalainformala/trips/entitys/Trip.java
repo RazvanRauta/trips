@@ -5,7 +5,9 @@ package ro.scoalainformala.trips.entitys;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -15,25 +17,37 @@ public class Trip {
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
+    @NotNull
     @Column(name = "TITLE")
     private String title;
-
+    @NotNull
     @Column(name = "DESCRIPTION")
     private String description;
 
-
+    @NotNull
     @Column(name = "START_DATE")
-    @DateTimeFormat(pattern = "dd.MMM.yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
-
+    @NotNull
     @Column(name = "END_DATE")
-    @DateTimeFormat(pattern = "dd.MMM.yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
-
+    @NotNull
     @Column(name = "LOCATION")
     private String location;
+
+    @NotNull
+    @Column(name = "FILEPATH")
+    private String filePath;
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 
     public long getId() {
         return id;
