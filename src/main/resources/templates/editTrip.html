@@ -9,24 +9,24 @@
 <div th:insert="index::navbar"></div>
 <div th:insert="index::navbar2"></div>
 <h3>Trips List</h3>
-<div> <table class="form-group">
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Location</th>
-    </tr>
-    <tr th:each="trip : ${trips}">
-        <td th:text="${trip.id}"></td>
-        <td th:text="${trip.title}"></td>
-        <td th:text="${trip.description}"></td>
-        <td th:text="${{trip.startDate}}"></td>
-        <td th:text="${{trip.endDate}}"></td>
-        <td th:text="${trip.location}"></td>
-    </tr>
-</table>
+<div>
+    <form action="#" th:action="@{/edit/{id}(id=${trip.id})}" th:object="${trip}">
+        <!--<p th:hidden="">Id:<input type="text" th:field="*{id}"></p>-->
+        <p>Name: <input type="text" th:field="*{title}" required/></p>
+        <p>Descriptions: <textarea th:field="*{description}" required/></p>
+        <p>Start Date: <input type="datetime" th:field="*{{startDate}}" required/></p>
+        <p>End Date:<input type="datetime" th:field="*{{endDate}}" required/></p>
+        <p>Location:<input type="text" th:field="*{location}" required/></p>
+        <div class="custom-file w-100">
+            <input th:field="*{filePath}" type="file" class="custom-file-input" id="customFile2">
+            <label class="custom-file-label" for="customFile2">Choose file...</label>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" value="Submit">Save changes</button>
+        </div>
+    </form>
 </div>
 
 <div th:insert="index::site-footer"></div>

@@ -2,24 +2,18 @@ package ro.scoalainformala.trips.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ro.scoalainformala.trips.entitys.Spot;
 import ro.scoalainformala.trips.entitys.Trip;
-import ro.scoalainformala.trips.repository.SpotRepository;
 import ro.scoalainformala.trips.repository.TripRepository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class TripServiceImpl implements TripService {
     @Autowired
     TripRepository tripRepository;
-    SpotRepository spotRepository;
 
     @Override
     public Trip createTrip(Trip trip) {
-
         return tripRepository.save(trip);
     }
 
@@ -35,11 +29,6 @@ public class TripServiceImpl implements TripService {
         return tripRepository.save(trip);
     }
 
-    @Override
-    public void deleteTrip(Trip trip) {
-        tripRepository.delete(trip);
-
-    }
 
     public void deleteTrip(Long id) {
         tripRepository.deleteById(id);
@@ -51,8 +40,4 @@ public class TripServiceImpl implements TripService {
     }
 
 
-    @Override
-    public List<Spot> getAllSpots() {
-       return spotRepository.findAll();
-    }
 }

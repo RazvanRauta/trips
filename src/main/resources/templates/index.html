@@ -15,7 +15,7 @@
     <link rel="stylesheet" th:href="@{/css/Footer-Basic.css}"/>
     <link rel="stylesheet" th:href="@{/css/Navigation-Clean.css}"/>
     <link rel="stylesheet" th:href="@{/css/Navigation-with-Button.css}"/>
-    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" href="{/css/styles.css}" th:href="@{/css/styles.css}"/>
     <link rel="icon" th:href="@{/img/favicon.ico}"/>
 
 </head>
@@ -54,7 +54,11 @@
 <br/>
 <div>
     <div th:fragment="navbar2">
-        <nav class="navbar navbar-expand-sm bg-info navbar-dark fixed-bottom navigation-clean-button fixed-bottom ">
+        <nav class="navbar navbar-expand-sm bg-info navbar-dark fixed-bottom navigation-clean-button fixed-bottom "
+             style="
+    padding-top: 2px;
+    padding-bottom: 2px;
+">
             <div class="container">
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
                         class="navbar-toggler-icon"></span></button>
@@ -72,8 +76,8 @@
                         </form>
                     </ul>
                     <span class="navbar-text actions">
-                           <a class="btn btn-light action-button" role="button" data-toggle="modal"
-                              data-target="#createModal3">Edit</a>
+                           <a class="btn btn-light action-button" role="button"
+                              th:href="@{/editTrip/{id}(id=${trip.id})}">Edit</a>
                             <a class="btn btn-light action-button" role="button" data-toggle="modal"
                                data-target="#createModal" style="background-color:rgb(20,207,61);">Add</a>
                             <a class="btn btn-light action-button" role="button"
@@ -102,7 +106,7 @@
             <p class="text-center">Take a look in my adventures! </p>
         </div>
         <div class="row articles">
-            <div class="col-sm-6 col-md-4 item">
+            <div class="col-sm-6 col-md-4 item" th:each="trip : ${trips}">
                 <div id="carusel1" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#carusel1" data-slide-to="0" class="active"></li>
@@ -133,7 +137,7 @@
                             <img class="img-thumbnail" th:src="@{/img/rio/f.jpg}" alt="6">
                         </div>
                         <div class="carousel-item">
-                            <img class="img-thumbnail" th:src="@{/img/rio/g.jpg}" alt="7">
+                            <img class="img-thumbnail" th:src="@{/image/{id}(id=${trip.filePath})}" alt="7">
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#carusel1" role="button" data-slide="prev">
@@ -145,12 +149,14 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
-                <h3 class="name">Rio de Janeiro</h3>
-                <p class="description">Rio de Janeiro is a huge seaside city in Brazil, famed for its Copacabana and
+                <h3 class="name" th:text="${trip.title}">Rio de Janeiro</h3>
+                <p class="description" th:text="${trip.description}">Rio de Janeiro is a huge seaside city in Brazil,
+                    famed for its Copacabana and
                     Ipanema beaches, 38m Christ the Redeemer statue atop Mount Corcovado and for Sugarloaf Mountain, a
                     granite peak with cable cars to its summit. The city is also known for its sprawling favelas (shanty
                     towns). Its raucous Carnaval festival, featuring parade floats, flamboyant costumes and samba
-                    dancers, is considered the world’s largest.</p><a href="#" class="action"><i
+                    dancers, is considered the world’s largest.</p><a th:href="@{/seeTrip/{id}(id=${trip.id})}"
+                                                                      class="action"><i
                     class="fa fa-arrow-circle-right"></i></a></div>
             <div
                     class="col-sm-6 col-md-4 item">
@@ -251,9 +257,10 @@
                                                                                                         class="action"><i
                     class="fa fa-arrow-circle-right"></i></a></div>
 
-            <div class="col align-content-center">
-                <div id="carusel4" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
+            <div class="col text-center">
+                <div id="carusel4" class="carousel slide text-center" style="
+    left: 25%;" data-ride="carousel">
+                    <ol class="carousel-indicators align-content-center">
                         <li data-target="#carusel4" data-slide-to="0" class="active"></li>
                         <li data-target="#carusel4" data-slide-to="1"></li>
                         <li data-target="#carusel4" data-slide-to="2"></li>
@@ -272,7 +279,7 @@
                         <li data-target="#carusel4" data-slide-to="15"></li>
                         <li data-target="#carusel4" data-slide-to="16"></li>
                     </ol>
-                    <div class="carousel-inner">
+                    <div class="carousel-inner align-content-center" id="tripsImg">
                         <div class="carousel-item active">
                             <img class="img-thumbnail" th:src="@{/img/dive/a1.jpg}" alt="1">
                         </div>
@@ -413,6 +420,14 @@
                                         <label class="custom-file-label" for="customFile2">Choose file...</label>
                                     </div>
                                 </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="customFile2">Trip Pictures</label>
+                                    <div class="custom-file w-100">
+                                        <input th:field="*{filePath2}" type="file" class="custom-file-input"
+                                               id="customFile3" required>
+                                        <label class="custom-file-label" for="customFile3">Choose 2nd file...</label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -437,7 +452,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="#" th:action="@{/editTrip}" th:object="${trip}" method="put">
+                        <form action="#" th:action="@{/editTrip}" th:object="${trip}" method="post">
                             <p>Name: <input type="text" th:field="*{title}" required/></p>
                             <p>Descriptions: <textarea th:field="*{description}" required/></p>
                             <p>Start Date: <input type="datetime" th:field="*{{startDate}}" required/></p>

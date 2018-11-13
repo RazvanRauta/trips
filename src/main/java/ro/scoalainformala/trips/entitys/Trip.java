@@ -7,7 +7,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.List;
 
 
 @Entity
@@ -21,7 +20,7 @@ public class Trip {
     @Column(name = "TITLE")
     private String title;
     @NotNull
-    @Column(name = "DESCRIPTION")
+    @Column(columnDefinition = "text", length = 10485760, name = "DESCRIPTION")
     private String description;
 
     @NotNull
@@ -38,8 +37,20 @@ public class Trip {
     private String location;
 
     @NotNull
-    @Column(name = "FILEPATH")
+    @Column(columnDefinition = "text", length = 10485760, name = "FILEPATH")
     private String filePath;
+
+    @NotNull
+    @Column(columnDefinition = "text", length = 10485760, name = "FILEPATH2")
+    private String filePath2;
+
+    public String getFilePath2() {
+        return filePath2;
+    }
+
+    public void setFilePath2(String filePath2) {
+        this.filePath2 = filePath2;
+    }
 
     public String getFilePath() {
         return filePath;

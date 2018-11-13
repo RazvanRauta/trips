@@ -10,30 +10,29 @@
 <br/>
 <br/>
 <div th:switch="${trips}">
-    <h2 th:case="null">No users yet!</h2>
+    <h2 th:case="null">No trips yet!</h2>
     <div th:case="*">
         <h3 class="header-panel align-content-center">Trips List</h3>
         <div>
-            <table class="table-bordered">
+            <table class="table-bordered" th:each="trip : ${trips}">
                 <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Name</th>
-                    <th>Description</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
+
                     <th>Location</th>
-                    <th>Picture</th>
                 </tr></thead>
                 <tbody>
-                <tr th:each="trip : ${trips}">
-                    <td th:text="${trip.id}"></td>
+                <tr>
                     <td th:text="${trip.title}"></td>
-                    <td th:text="${trip.description}"></td>
-                    <td th:text="${{trip.startDate}}"></td>
-                    <td th:text="${{trip.endDate}}"></td>
+                    <td><a th:href="${'/deleteTrip/' + trip.id}">Delete</a></td>
+
+                </tr>
+                <tr>
+                    <td id="pozaTrip"><a th:value="${trip.id}" th:href="@{/seeTrip/{id}(id=${trip.id})}"><img
+                            class="img-thumbnail" id="tripImg" th:src="@{/image/{id}(id=${trip.filePath})}"></a></td>
+                    <td id="pozaTrip2"><a th:value="${trip.id}" th:href="@{/seeTrip/{id}(id=${trip.id})}"><img
+                            class="img-thumbnail" id="tripImg2" th:src="@{/image/{id}(id=${trip.filePath2})}"></a></td>
                     <td th:text="${trip.location}"></td>
-                    <td id="pozaTrip"><img class="card-img" th:src="@{/image/{id}(id=${trip.filePath})}"></td>
                     <td><a th:href="${'/deleteTrip/' + trip.id}">Delete</a></td>
                 </tr>
                 </tbody>

@@ -1,39 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
-<head th:replace="index :: head">
+<head th:replace="index :: site-head">
     <title>AdventuRazvi</title>
 </head>
 <body>
-<div th:insert="index::navbar"></div>
-<div th:insert="index::navbar2"></div>
+<div th:insert="index :: navbar"></div>
+<div th:insert="index :: navbar2"></div>
 <br/>
 <br/>
 <br/>
-<h1 class="panel-title" th:text="${trip.title}">Trip Details</h1>
+<div class="article-list align-items-center">
+    <h1 class="panel-title text-center" th:text="'Trip to: '+ ${trip.title}"></h1>
 <br/><br/>
-<table class="glyphicon glyphicon-calendar">
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Location</th>
-        <th>FilePath</th>
-    </tr>
-    <tr>
-        <td th:text="${trip.id}"></td>
-        <td th:text="${trip.title}"></td>
-        <td th:text="${trip.description}"></td>
-        <td th:text="${{trip.startDate}}"></td>
-        <td th:text="${{trip.endDate}}"></td>
-        <td th:text="${trip.location}"></td>
-        <td><div class="container-fluid"> <img class="img-thumbnail" style="float: right;"  th:src="@{/image/{id}(id=${trip.filePath})}" alt="1"></div></td>
-    </tr>
-</table>
+    <div class="row">
+        <div class="container text-center"><img class="img-thumbnail" id="tripImg"
+                                                th:src="@{/image/{id}(id=${trip.filePath})}" alt="1"></div>
+        <div class="container text-center"><img class="img-thumbnail" id="tripImg2"
+                                                th:src="@{/image/{id}(id=${trip.filePath2})}" alt="1"></div>
+        <div class="container text-center" th:text="${trip.description}"></div>
+    </div>
+    <div class="container text-center" th:text="'From: ' + ${{trip.startDate}} + ' To: ' + ${{trip.endDate}}">
+    </div>
+    <div class="container text-center" th:text="${trip.location}"></div>
    </div>
-<div th:insert="index::site-footer"></div>
-<div th:insert="index::modal"></div>
+<div th:insert="index :: site-footer"></div>
+<div th:insert="index :: modal"></div>
 </footer>
 <script type="text/javascript" src="/static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 <script type="text/javascript"  src="/static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
