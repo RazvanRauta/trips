@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:insert="index::site-head">
+<head th:replace="index::site-head">
 </head>
 <body>
 <div th:insert="index::navbar"></div>
@@ -12,14 +12,19 @@
 <div>
     <form action="#" th:action="@{/edit/{id}(id=${trip.id})}" th:object="${trip}">
         <!--<p th:hidden="">Id:<input type="text" th:field="*{id}"></p>-->
-        <p>Name: <input type="text" th:field="*{title}" required/></p>
-        <p>Descriptions: <textarea th:field="*{description}" required/></p>
-        <p>Start Date: <input type="datetime" th:field="*{{startDate}}" required/></p>
-        <p>End Date:<input type="datetime" th:field="*{{endDate}}" required/></p>
-        <p>Location:<input type="text" th:field="*{location}" required/></p>
+        <p>Name: <input type="text" th:value="*{title}" th:field="*{title}" required/></p>
+        <p>Descriptions: <textarea th:value="*{description}" th:field="*{description}" required/></p>
+        <p>Start Date: <input type="datetime" th:value="*{{startDate}}" th:field="*{{startDate}}" required/></p>
+        <p>End Date:<input type="datetime" th:value="*{{endDate}}" th:field="*{{endDate}}" required/></p>
+        <p>Location:<input type="text" th:value="*{location}" th:field="*{location}" required/></p>
         <div class="custom-file w-100">
-            <input th:field="*{filePath}" type="file" class="custom-file-input" id="customFile2">
+            <input th:field="*{filePath}" th:value="*{filePath}" type="file" class="custom-file-input" id="customFile2">
             <label class="custom-file-label" for="customFile2">Choose file...</label>
+        </div>
+        <div class="custom-file w-100">
+            <input th:field="*{filePath2}" th:value="*{filePath2}" type="file" class="custom-file-input"
+                   id="customFile3">
+            <label class="custom-file-label" for="customFile3">Choose 2nd file...</label>
         </div>
 
         <div class="modal-footer">

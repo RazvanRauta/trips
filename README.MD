@@ -1,7 +1,7 @@
 #AdventuRazvi
 
-Web application made with Spring Boot + Thymeleaf + Bootstrap.
+Web application made with Spring Boot+ Jpa + Thymeleaf + Bootstrap.
 
-Work in progress..
+It's a travel blog where you can add. edit, delete a trip to a location with description and pictures.
 
 #by Razvan Rauta

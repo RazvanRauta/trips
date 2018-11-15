@@ -29,7 +29,7 @@ public class TripServiceImpl implements TripService {
         return tripRepository.save(trip);
     }
 
-
+    @Override
     public void deleteTrip(Long id) {
         tripRepository.deleteById(id);
     }

@@ -40,7 +40,6 @@ public class TripController {
         model.addAttribute("trips", tripService.getAllTrips());
         return "tripDetails";
     }
-
     @RequestMapping(value = "/seeTrip/{id}", method = RequestMethod.GET)
     public String trip(@PathVariable(required = false, name = "id") Long id, Model model) {
         model.addAttribute("trip", tripService.getTrip(id));
@@ -89,15 +88,14 @@ public class TripController {
         model.addAttribute("trip", new Trip());
         model.addAttribute("tripsList", tripService.getAllTrips());
         model.addAttribute("trips", tripService.getAllTrips());
-        return "viewTrips";
+        return "index";
 
     }
 
 
 
     @GetMapping(value = "/profile")
-    public String profile(Model model){
-        model.addAttribute("trip", new Trip());
+    public String profile() {
 
         return  "profile";
     }

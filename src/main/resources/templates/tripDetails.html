@@ -12,11 +12,12 @@
 <div class="article-list align-items-center">
     <h1 class="panel-title text-center" th:text="'Trip to: '+ ${trip.title}"></h1>
 <br/><br/>
-    <div class="row">
-        <div class="container text-center"><img class="img-thumbnail" id="tripImg"
+    <div class="row justify-content-center">
+        <div class="col-sm-6 col-md-4 align-content-center"><img class="img-thumbnail"
                                                 th:src="@{/image/{id}(id=${trip.filePath})}" alt="1"></div>
-        <div class="container text-center"><img class="img-thumbnail" id="tripImg2"
-                                                th:src="@{/image/{id}(id=${trip.filePath2})}" alt="1"></div>
+        <div class="col-sm-6 col-md-4 align-content-center"><img class="img-thumbnail"
+                                                                 th:src="@{/image/{id}(id=${trip.filePath2})}" alt="1">
+        </div>
         <div class="container text-center" th:text="${trip.description}"></div>
     </div>
     <div class="container text-center" th:text="'From: ' + ${{trip.startDate}} + ' To: ' + ${{trip.endDate}}">
