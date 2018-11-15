@@ -1,0 +1,105 @@
+
+body, html {
+    height: 100%;
+}
+
+/*.bg {*/
+/*!* The image used *!*/
+/*background-image: url(../img/cc.jpg);*/
+
+/*!* Full height  *!*/
+/*height: 100%;*/
+
+/*!* Center and scale the image nicely *!*/
+/*background-position: center;*/
+/*background-repeat: no-repeat;*/
+/*background-size: cover;*/
+/*}*/
+
+/*.navbar {*/
+/*overflow: hidden;*/
+/*background-color: transparent;*/
+/*position: fixed; !* Set the navbar to fixed position *!*/
+/*top: 0; !* Position the navbar at the top of the page *!*/
+/*width: 100%; !* Full width *!*/
+/*}*/
+#profileImg {
+    /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../img/alpaca.jpg);
+
+    /* Set a specific height */
+    height: 70%;
+
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+#coverImg {
+    /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../img/cc.jpg);
+
+    /* Set a specific height */
+    height: 75%;
+
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+/* Place text in the middle of the image */
+.hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+/*.navbar-brand{*/
+/*position: absolute;*/
+/*top: 0;*/
+/*left: 0;*/
+
+/*}*/
+
+#header .header-content {
+    height: 100vh;
+    text-align: left;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.header-content h1 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+#tripImg, #tripImg2 {
+    padding: .25rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+    max-width: 25%;
+    height: auto;
+}
+
+#tripsImg {
+    max-width: 50%;
+    height: auto;
+}
+
