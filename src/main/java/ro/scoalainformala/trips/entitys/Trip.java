@@ -3,6 +3,7 @@ package ro.scoalainformala.trips.entitys;
 
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -37,27 +38,29 @@ public class Trip {
     private String location;
 
     @NotNull
-    @Column(columnDefinition = "text", length = 10485760, name = "FILEPATH")
-    private String filePath;
+    @Lob
+    @Column(name = "FILEPATH")
+    private byte[] filePath;
 
     @NotNull
-    @Column(columnDefinition = "text", length = 10485760, name = "FILEPATH2")
-    private String filePath2;
+    @Lob
+    @Column(name = "FILEPATH2")
+    private byte[] filePath2;
 
-    public String getFilePath2() {
-        return filePath2;
-    }
-
-    public void setFilePath2(String filePath2) {
-        this.filePath2 = filePath2;
-    }
-
-    public String getFilePath() {
+    public byte[] getFilePath() {
         return filePath;
     }
 
-    public void setFilePath(String filePath) {
+    public void setFilePath(byte[] filePath) {
         this.filePath = filePath;
+    }
+
+    public byte[] getFilePath2() {
+        return filePath2;
+    }
+
+    public void setFilePath2(byte[] filePath2) {
+        this.filePath2 = filePath2;
     }
 
     public long getId() {

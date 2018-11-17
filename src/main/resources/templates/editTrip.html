@@ -3,41 +3,98 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="index::site-head">
+<head th:replace="index :: site-head">
 </head>
+<br/>
+<br/>
+<br/>
+<br/>
 <body>
-<div th:insert="index::navbar"></div>
-<div th:insert="index::navbar2"></div>
-<h3>Trips List</h3>
+<div th:replace="index :: navbar"></div>
+<div th:replace="index :: navbar2"></div>
+<h3 th:text="'Edit trip to ' +${trip.title}"></h3>
 <div>
     <form action="#" th:action="@{/edit/{id}(id=${trip.id})}" th:object="${trip}">
-        <!--<p th:hidden="">Id:<input type="text" th:field="*{id}"></p>-->
-        <p>Name: <input type="text" th:value="*{title}" th:field="*{title}" required/></p>
-        <p>Descriptions: <textarea th:value="*{description}" th:field="*{description}" required/></p>
-        <p>Start Date: <input type="datetime" th:value="*{{startDate}}" th:field="*{{startDate}}" required/></p>
-        <p>End Date:<input type="datetime" th:value="*{{endDate}}" th:field="*{{endDate}}" required/></p>
-        <p>Location:<input type="text" th:value="*{location}" th:field="*{location}" required/></p>
-        <div class="custom-file w-100">
-            <input th:field="*{filePath}" th:value="*{filePath}" type="file" class="custom-file-input" id="customFile2">
-            <label class="custom-file-label" for="customFile2">Choose file...</label>
-        </div>
-        <div class="custom-file w-100">
-            <input th:field="*{filePath2}" th:value="*{filePath2}" type="file" class="custom-file-input"
-                   id="customFile3">
-            <label class="custom-file-label" for="customFile3">Choose 2nd file...</label>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="form-2-location">Title</label>
+                <input type="text" th:field="*{title}" th:value="*{title}" class="form-control is-invalid"
+                       required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="form-2-location">Description</label>
+                <input type="text" th:field="*{description}" th:value="*{description}" class="form-control is-invalid"
+                       required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="form-2-location">Location</label>
+                <input type="text" th:field="*{location}" th:value="*{location}" class="form-control is-invalid"
+                       id="form-2-location" required>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="form-group">
+                    <label for="datepicker-example-1">Start Date</label>
+                    <div class="input-group with-addon-icon-left">
+                        <input type="date" th:field="*{{startDate}}" th:value="*{{startDate}}" required
+                               class="form-control" id="datepicker-example-1">
+                        <span class="input-group-append">
+                    <span class="input-group-text">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                  </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="form-group">
+                    <label for="datepicker-example-2">End Date</label>
+                    <div class="input-group with-addon-icon-left">
+                        <input type="date" th:field="*{{endDate}}" th:value="*{{endDate}}" required class="form-control"
+                               id="datepicker-example-2">
+                        <span class="input-group-append">
+                    <span class="input-group-text">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                  </span>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <div class="row mb-2">
+            <div class="col-md-6 mb-3">
+                <label for="customFile2">Trip Pictures</label>
+                <div class="custom-file w-100">
+                    <input th:field="*{filePath}" th:value="*{filePath}" type="file" class="custom-file-input"
+                           id="customFile2" required>
+                    <label class="custom-file-label" for="customFile2">Choose file...</label>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="customFile2">Trip Pictures</label>
+                <div class="custom-file w-100">
+                    <input th:field="*{filePath2}" th:value="*{filePath2}" type="file" class="custom-file-input"
+                           id="customFile3" required>
+                    <label class="custom-file-label" for="customFile3">Choose 2nd file...</label>
+                </div>
+            </div>
+        </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary" value="Submit">Save changes</button>
         </div>
     </form>
 </div>
+</div>
+</form>
+</div>
 
-<div th:insert="index::site-footer"></div>
-<div th:insert="index::modal"></div>
-<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
-<script type="text/javascript"  src="/static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+<div th:replace="index :: site-footer"></div>
+<div th:replace="index :: modal"></div>
+
+<script type="text/javascript" th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/4.1.3/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/popper.js/1.14.4/umd/popper.min.js}"></script>
 </body>
 
 </html>

@@ -77,11 +77,11 @@
                         </form>
                     </ul>
                     <span class="navbar-text actions">
-                           <a class="btn btn-light action-button" role="button"
+                           <a class="btn btn-light action-button d-none" id="editButton" role="button"
                               th:href="@{/editTrip/{id}(id=${trip.id})}">Edit</a>
                             <a class="btn btn-light action-button" role="button" data-toggle="modal"
                                data-target="#createModal" style="background-color:rgb(20,207,61);">Add</a>
-                            <a class="btn btn-light action-button" role="button"
+                            <a class="btn btn-light action-button d-none" id="deleteButton" role="button"
                                style="background-color:rgb(207,20,20);" th:href="@{/deleteTrip/{id}(id=${trip.id})}">Delete</a></span>
                 </div>
             </div>
