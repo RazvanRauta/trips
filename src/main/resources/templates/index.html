@@ -77,11 +77,11 @@
                         </form>
                     </ul>
                     <span class="navbar-text actions">
-                           <a class="btn btn-light action-button d-none" id="editButton" role="button"
+                           <a class="btn btn-light action-button" id="editButton" role="button"
                               th:href="@{/editTrip/{id}(id=${trip.id})}">Edit</a>
                             <a class="btn btn-light action-button" role="button" data-toggle="modal"
                                data-target="#createModal" style="background-color:rgb(20,207,61);">Add</a>
-                            <a class="btn btn-light action-button d-none" id="deleteButton" role="button"
+                            <a class="btn btn-light action-button" id="deleteButton" role="button"
                                style="background-color:rgb(207,20,20);" th:href="@{/deleteTrip/{id}(id=${trip.id})}">Delete</a></span>
                 </div>
             </div>
@@ -116,11 +116,11 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img class="img-thumbnail" th:src="@{/image/{id}(id=${trip.filePath})}" alt="0">
+                            <img class="img-thumbnail" th:src="@{'/image/' + ${trip.id} + '/tripImage'}" alt="0">
                         </div>
-                        <div class="carousel-item">
-                            <img class="img-thumbnail" th:src="@{/image/{id}(id=${trip.filePath2})}" alt="1">
-                        </div>
+                        <!--<div class="carousel-item">-->
+                        <!--<img class="img-thumbnail" th:src="@{/image/{id}(id=${trip.filePath2})}" alt="1">-->
+                        <!--</div>-->
                     </div>
                     <a class="carousel-control-prev" href="#carusel1" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -138,6 +138,7 @@
         </div>
     </div>
 </div>
+
 <!-- Modal -->
 <div class="modal" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModal2" aria-hidden="true"
      th:fragment="modal">
@@ -204,24 +205,24 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-2">
-                                <div class="col-md-6 mb-3">
-                                    <label for="customFile2">Trip Pictures</label>
-                                    <div class="custom-file w-100">
-                                        <input th:field="*{filePath}" type="file" class="custom-file-input"
-                                               id="customFile2" required>
-                                        <label class="custom-file-label" for="customFile2">Choose file...</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="customFile2">Trip Pictures</label>
-                                    <div class="custom-file w-100">
-                                        <input th:field="*{filePath2}" type="file" class="custom-file-input"
-                                               id="customFile3" required>
-                                        <label class="custom-file-label" for="customFile3">Choose 2nd file...</label>
-                                    </div>
-                                </div>
-                            </div>
+                            <!--<div class="row mb-2">-->
+                            <!--<div class="col-md-6 mb-3">-->
+                            <!--<label for="customFile2">Trip Pictures</label>-->
+                            <!--<div class="custom-file w-100">-->
+                            <!--<input th:field="*{filePath}" name="file" type="file" class="custom-file-input"-->
+                            <!--id="customFile2" required>-->
+                            <!--<label class="custom-file-label" for="customFile2">Choose file...</label>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash;<div class="col-md-6 mb-3">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<label for="customFile2">Trip Pictures</label>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="custom-file w-100">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<input th:field="*{filePath2}" type="file" class="custom-file-input"&ndash;&gt;-->
+                            <!--&lt;!&ndash;id="customFile3" required>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<label class="custom-file-label" for="customFile3">Choose 2nd file...</label>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--</div>-->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary" value="Submit">Save changes</button>

@@ -14,9 +14,10 @@
 <br/><br/>
     <div class="row justify-content-center">
         <div class="col-sm-6 col-md-4 align-content-center"><img class="img-thumbnail"
-                                                th:src="@{/image/{id}(id=${trip.filePath})}" alt="1"></div>
-        <div class="col-sm-6 col-md-4 align-content-center"><img class="img-thumbnail"
-                                                                 th:src="@{/image/{id}(id=${trip.filePath2})}" alt="1">
+                                                                 th:src="@{'/image/' + ${trip.id} + '/tripImage'}"
+                                                                 alt="1"></div>
+        <!--<div class="col-sm-6 col-md-4 align-content-center"><img class="img-thumbnail"-->
+        <!--th:src="@{/image/{id}(id=${trip.filePath2})}" alt="1">-->
         </div>
         <div class="container text-center" th:text="${trip.description}"></div>
     </div>
@@ -24,6 +25,13 @@
     </div>
     <div class="container text-center" th:text="${trip.location}"></div>
    </div>
+
+<div class="col-md-1">
+    <a class="btn btn-default" href="#"
+       th:href="@{'/trip/' + ${trip.id} + '/image'}" role="button">Upload Image</a>
+</div>
+
+
 <div th:replace="index :: site-footer"></div>
 <div th:replace="index :: modal"></div>
 </footer>

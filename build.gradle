@@ -45,10 +45,7 @@ dependencies {
     compile 'org.webjars:popper.js:1.14.4'
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'org.webjars', name: 'font-awesome', version: '5.5.0'
-
-//
-//
-//    compile('org.projectlombok:lombok')
+    compile('org.projectlombok:lombok')
 
 }
 

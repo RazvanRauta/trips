@@ -3,11 +3,10 @@ package ro.scoalainformala.trips.entitys;
 
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -17,50 +16,36 @@ public class Trip {
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotNull
+
     @Column(name = "TITLE")
     private String title;
-    @NotNull
+
     @Column(columnDefinition = "text", length = 10485760, name = "DESCRIPTION")
     private String description;
 
-    @NotNull
+
     @Column(name = "START_DATE")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
-    @NotNull
+
     @Column(name = "END_DATE")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
-    @NotNull
+
     @Column(name = "LOCATION")
     private String location;
 
-    @NotNull
     @Lob
-    @Column(name = "FILEPATH")
-    private byte[] filePath;
+    private Byte[] image;
 
-    @NotNull
-    @Lob
-    @Column(name = "FILEPATH2")
-    private byte[] filePath2;
 
-    public byte[] getFilePath() {
-        return filePath;
+    public Byte[] getImage() {
+        return image;
     }
 
-    public void setFilePath(byte[] filePath) {
-        this.filePath = filePath;
-    }
-
-    public byte[] getFilePath2() {
-        return filePath2;
-    }
-
-    public void setFilePath2(byte[] filePath2) {
-        this.filePath2 = filePath2;
+    public void setImage(Byte[] image) {
+        this.image = image;
     }
 
     public long getId() {

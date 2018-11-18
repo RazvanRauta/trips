@@ -29,7 +29,7 @@
                 </tr>
                 <tr>
                     <td id="pozaTrip"><a th:value="${trip.id}" th:href="@{/seeTrip/{id}(id=${trip.id})}"><img
-                            class="img-thumbnail" id="tripImg" th:src="@{/image/{id}(id=${trip.filePath})}"></a></td>
+                            class="img-thumbnail" id="tripImg" th:src="@{/image/{id}(id=${trip.images})}"></a></td>
                     <td id="pozaTrip2"><a th:value="${trip.id}" th:href="@{/seeTrip/{id}(id=${trip.id})}"><img
                             class="img-thumbnail" id="tripImg2" th:src="@{/image/{id}(id=${trip.filePath2})}"></a></td>
                     <td th:text="${trip.location}"></td>
